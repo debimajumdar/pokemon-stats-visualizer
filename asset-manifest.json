@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pokemon-stats-visualizer/static/css/main.fa0ea15f.css",
+    "main.js": "/pokemon-stats-visualizer/static/js/main.11d47075.js",
+    "static/js/453.2c0c54f1.chunk.js": "/pokemon-stats-visualizer/static/js/453.2c0c54f1.chunk.js",
+    "index.html": "/pokemon-stats-visualizer/index.html",
+    "main.fa0ea15f.css.map": "/pokemon-stats-visualizer/static/css/main.fa0ea15f.css.map",
+    "main.11d47075.js.map": "/pokemon-stats-visualizer/static/js/main.11d47075.js.map",
+    "453.2c0c54f1.chunk.js.map": "/pokemon-stats-visualizer/static/js/453.2c0c54f1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fa0ea15f.css",
+    "static/js/main.11d47075.js"
+  ]
+}
