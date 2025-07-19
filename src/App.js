@@ -4,43 +4,24 @@ import './App.css';
 function App() {
   const [pokemon, setPokemon] = useState(null);
   const [query, setQuery] = useState('');
+  const [pokemonId, setPokemonId] = useState(null);
 
-  const fetchPokemon = async () => {
+  const fetchPokemon = async (nameOrId = query) => {
     try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`);
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId.toString().toLowerCase()}`);
       if (!res.ok) throw new Error('Pokémon not found');
       const data = await res.json();
       setPokemon(data);
+      setPokemonId(data.id);
     } catch (error) {
-      setPokemon(null);
       alert("Pokémon not found!");
     }
   };
 
-  const getTypeColor = (types) => {
-    if (!types) return '#000';
-    const primaryType = types[0].type.name;
-    const typeColors = {
-      fire: '#f08030',
-      water: '#6890f0',
-      grass: '#78c850',
-      electric: '#f8d030',
-      psychic: '#f85888',
-      ice: '#98d8d8',
-      dragon: '#7038f8',
-      dark: '#705848',
-      fairy: '#ee99ac',
-      normal: '#a8a878',
-      fighting: '#c03028',
-      flying: '#a890f0',
-      poison: '#a040a0',
-      ground: '#e0c068',
-      rock: '#b8a038',
-      bug: '#a8b820',
-      ghost: '#705898',
-      steel: '#b8b8d0'
-    };
-    return typeColors[primaryType] || '#000';
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      fetchPokemon();
+    }
   };
 
   const getImageClass = (name) => {
@@ -56,7 +37,7 @@ function App() {
       <div className="lens white"></div>
       <h2>Debi's Pokedex</h2>
 
-      <div className="screen">
+      <div className="screen" style={{ backgroundColor: '#ffffff' }}>
         {pokemon ? (
           <img
             className={`pokemon-img ${getImageClass(pokemon.name)}`}
@@ -67,7 +48,7 @@ function App() {
             alt={pokemon.name}
           />
         ) : (
-          <div className="placeholder">Loading...</div>
+          <p style={{ color: 'black', fontSize: '16px' }}>Enter a Pokémon!</p>
         )}
       </div>
 
@@ -91,18 +72,17 @@ function App() {
       </div>
 
       <div className="buttons">
-        <button className="arrow">↑</button>
-        <button className="arrow">←</button>
-        <button className="arrow">→</button>
-        <button className="arrow">↓</button>
+        <button className="arrow" onClick={() => pokemonId && fetchPokemon(pokemonId - 1)}>←</button>
+        <button className="arrow" onClick={() => pokemonId && fetchPokemon(pokemonId + 1)}>→</button>
         <button className="cancel">X</button>
-        <button className="confirm" onClick={fetchPokemon}>✓</button>
+        <button className="confirm" onClick={() => fetchPokemon()}>✓</button>
       </div>
 
       <input
         placeholder="Enter Pokémon Name"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
     </div>
   );
